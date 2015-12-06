@@ -233,11 +233,12 @@ module Tilt
       # Load in order
       choices.each do |class_name, file|
         begin
-          require file
+          unless require file
 
-          if Thread.list.size > 1
-            warn "WARN: tilt autoloading '#{file}' in a non thread-safe way; " +
-              "explicit require '#{file}' suggested."
+            if Thread.list.size > 1
+              warn "WARN: tilt autoloading '#{file}' in a non thread-safe way; " +
+                "explicit require '#{file}' suggested."
+            end
           end
 
           # It's safe to eval() here because constant_defined? will
