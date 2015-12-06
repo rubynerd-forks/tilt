@@ -79,7 +79,7 @@ module Tilt
     def register_lazy(class_name, file, *extensions)
       # Internal API
       if class_name.is_a?(Symbol)
-        Tilt.autoload class_name, file
+        # Tilt.autoload class_name, file # this causes the warn() in require_lazy to fire even when this is loaded
         class_name = "Tilt::#{class_name}"
       end
 
